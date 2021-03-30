@@ -13,5 +13,5 @@ scenarios:
   parameters:
     notificationChannel: critical
     pagerDutyService: StackPulse
-    pagerDutyToken: pagerduty-token
+    pagerDutyToken: qqq
     slackIntegrationName: slack-alerts
