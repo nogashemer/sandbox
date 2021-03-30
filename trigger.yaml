@@ -1,0 +1,17 @@
+apiVersion: stackpulse.io/v1
+kind: Trigger
+enabled: true
+playbook: ootb-trigger-test
+metadata:
+  name: trigger-123123123
+  description: Trigger Description
+scenarios:
+- name: Scenario-1
+  enabled: true
+  integration: StackPulse Incident
+  when: '{{ and ( ieq .Type "created" ) }}'
+  parameters:
+    notificationChannel: critical
+    pagerDutyService: StackPulse
+    pagerDutyToken: pagerduty-token
+    slackIntegrationName: slack-alerts
