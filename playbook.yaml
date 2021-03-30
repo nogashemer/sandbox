@@ -3,20 +3,20 @@ kind: Playbook
 metadata:
   name: ootb-trigger-test
 parameters:
-  - name: notificationChannel
-    type: var
-    description: The name of the channel you would like to notify about the incident.
-  - name: pagerDutyToken
-    type: secret
-    description: PagerDuty API Token.
-  - name: pagerDutyService
-    type: var
-    description: The name of the PagerDuty service you would wish to page the on call for.
-  - name: slackIntegrationName
-    type: integration
-    description: Slack integration.
-    options:
-      integration_type: slack
+- name: notificationChannel
+  type: var
+  description: The name of the channel you would like to notify about the incident.
+- name: pagerDutyToken
+  type: secret
+  description: PagerDuty API Token.
+- name: pagerDutyService
+  type: var
+  description: The name of the PagerDuty service you would wish to page the on call for.
+- name: slackIntegrationName
+  type: integration
+  description: Slack integration.
+  options:
+    integration_type: slack
 steps:
 - name: us-docker.pkg.dev/stackpulse/public/utils/echo
   id: echo
