@@ -11,4 +11,4 @@ scenarios:
   integration: StackPulse Incident
   when: '{{ and ( ieq .Type "created" ) }}'
   parameters:
-    slackIntegrationName: 
+    # defaults from playbook
