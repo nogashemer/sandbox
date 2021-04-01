@@ -11,10 +11,12 @@ parameters:
   description: PagerDuty API Token.
 - name: pagerDutyService
   type: var
+  default: PGSERVICE
   description: The name of the PagerDuty service you would wish to page the on call for.
 - name: slackIntegrationName
   type: integration
   description: Slack integration.
+  default: slackpulse1
   options:
     integration_type: slack
 steps:
