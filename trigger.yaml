@@ -10,3 +10,5 @@ scenarios:
   enabled: true
   integration: StackPulse Incident
   when: '{{ and ( ieq .Type "created" ) }}'
+parameters:
+  event: '{{ $.event }}'

@@ -19,6 +19,9 @@ parameters:
   default: slackpulse1
   options:
     integration_type: slack
+- name: event
+  type: var
+  description: Event
 steps:
 - name: us-docker.pkg.dev/stackpulse/public/utils/echo
   id: echo
