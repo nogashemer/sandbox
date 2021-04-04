@@ -9,4 +9,4 @@ scenarios:
   enabled: true
   integration: StackPulse Incident
   when: "{{ and ( ieq (get \"$.event.Type\") \"Updated\" ) ( regexMatch \"Closed|Resolved\" $.event.Status ) }}"
-  parameters:
+  parameters: # automatically generated from playbook defaults
