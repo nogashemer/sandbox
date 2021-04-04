@@ -1,29 +1,31 @@
 apiVersion: stackpulse.io/v1
 kind: Playbook
 metadata:
-  name: ootb-trigger-test
+  name: archive-incident-war-room
 parameters:
-- name: notificationChannel
-  type: var
-  description: The name of the channel you would like to notify about the incident.
-- name: pagerDutyToken
-  type: secret
-  description: PagerDuty API Token.
-- name: pagerDutyService
-  type: var
-  default: PGSERVICE
-  description: The name of the PagerDuty service you would wish to page the on call for.
-- name: slackIntegrationName
-  type: integration
-  description: Slack integration.
-  default: slackpulse1
-  options:
-    integration_type: slack
-- name: event
-  type: var
-  description: Event
+  - name: "slackIntegrationName"
+    type: integration
+    description: "Slack integration."
+    options:
+      integration_type: slack
 steps:
-- name: us-docker.pkg.dev/stackpulse/public/utils/echo
-  id: echo
-  env:
-    MESSAGE: "{{ $.params }}"
+- when: '{{ not (empty .event.SlackWarRoomChannelName) }}'
+  steps:
+  # interactively ask the commander whether to archive the war room
+  - name: us-docker.pkg.dev/stackpulse/public/slack/message/interactive
+    id: slack_ask_archive_channel
+    env:
+      DEFAULT_RESPONSE: Yes
+      QUESTION: "Do you want to archive {{ .event.SlackWarRoomChannelName }} channel?"
+      RECIPIENTS: '{{ .event.Commander }}'
+      RESPONSES: "Yes,No"
+      TIMEOUT: 5m
+    envFrom:
+      integrationRef: '{{ .params.slackIntegrationName }}'
+  - name: us-docker.pkg.dev/stackpulse/public/slack/channel/archive
+    id: slack_archive_war_room_channel
+    when: '{{ ieq .slack_response "Yes" }}'
+    env:
+      CHANNEL_NAME: "{{ .event.SlackWarRoomChannelName }}"
+    envFrom:
+      integrationRef: '{{ .params.slackIntegrationName }}'

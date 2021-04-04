@@ -1,14 +1,13 @@
 apiVersion: stackpulse.io/v1
 kind: Trigger
 enabled: true
-playbook: ootb-trigger-test
+playbook: archive-incident-war-room
 metadata:
-  name: trigger-123123123
-  description: Trigger Description
+  name: Incident was closed or resolved.
+  description: Triggered When an incident status is changing to 'Closed' or 'Resolved'.
 scenarios:
-- name: Scenario-1
+- name: stackpulse
   enabled: true
   integration: StackPulse Incident
-  when: '{{ and ( ieq .Type "created" ) }}'
+  when: "{{ and ( ieq (get \"$.event.Type\") \"Updated\" ) ( regexMatch \"Closed|Resolved\" $.event.Status ) }}"
   parameters:
-    event: '{{ $.event }}'
