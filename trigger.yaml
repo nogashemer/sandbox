@@ -10,4 +10,4 @@ scenarios:
   enabled: true
   integration: StackPulse Incident
   when: "{{ and ( ieq (get \"$.event.Type\") \"Updated\" ) ( ieq (get \"$.event.Status\") \"closed\" ) }}"
-  parameters: # automatically generated from playbook defaults
+  parameters: # automatically generated from playbook default
